@@ -52,7 +52,9 @@ export default class OrphanagesController {
         try {
             const { id } = request.params
             const orphanagesRepository = getRepository(Orphanage)
-            const orphanage = await orphanagesRepository.findOneOrFail(id)
+            const orphanage = await orphanagesRepository.findOneOrFail(id, {
+                relations: ['images']
+            })
             return response.json(OrphanageView.render(orphanage))
         } catch (e) {
             if (e instanceof EntityNotFoundError) {
