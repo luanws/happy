@@ -43,7 +43,7 @@ export default class OrphanagesController {
             if (e instanceof EntityNotFoundError) {
                 return response.json({ message: 'Orfanato não encontrado' })
             } else {
-                return response.send(e)
+                throw e
             }
         }
     }
