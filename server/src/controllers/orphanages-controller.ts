@@ -4,6 +4,7 @@ import { EntityNotFoundError } from "typeorm/error/EntityNotFoundError"
 import Image from "../models/images"
 import Orphanage from "../models/orphanage"
 import OrphanageView from "../views/orphanages-view"
+import * as yup from 'yup'
 
 export default class OrphanagesController {
     static async index(request: Request, response: Response) {
@@ -15,22 +16,36 @@ export default class OrphanagesController {
     }
 
     static async create(request: Request, response: Response) {
-        try {
-            const orphanagesRepository = getRepository(Orphanage)
+        const orphanagesRepository = getRepository(Orphanage)
 
-            const requestImages = request.files as Express.Multer.File[]
-            const images = requestImages.map(image => { return { path: image.filename } as Image })
-            console.log(requestImages, images)
+        const requestImages = request.files as Express.Multer.File[]
+        const images = requestImages.map(image => { return { path: image.filename } as Image })
 
-            const orphanage = orphanagesRepository.create({
-                images,
-                ...request.body
-            })
-            await orphanagesRepository.save(orphanage)
-            return response.status(201).json(orphanage)
-        } catch (e) {
-            return response.send(e)
+        const data = {
+            images,
+            ...request.body
         }
+
+        const schema = yup.object().shape({
+            name: yup.string().required(),
+            latitude: yup.number().required(),
+            longitude: yup.number().required(),
+            about: yup.string().required().max(300),
+            instructions: yup.string().required(),
+            openingHours: yup.string().required(),
+            openOnWeekends: yup.boolean().required(),
+            images: yup.array(yup.object().shape({
+                path: yup.string().required()
+            }))
+        })
+
+        await schema.validate(data, {
+            abortEarly: false
+        })
+
+        const orphanage = orphanagesRepository.create(data)
+        await orphanagesRepository.save(orphanage)
+        return response.status(201).json(orphanage)
     }
 
     static async show(request: Request, response: Response) {
