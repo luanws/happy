@@ -1,42 +1,61 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { FaWhatsapp } from "react-icons/fa"
 import { FiClock, FiInfo, FiArrowLeft } from "react-icons/fi"
 import { Map, Marker, TileLayer } from "react-leaflet"
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 
 import '../styles/pages/orphanage.css'
 import Sidebar from "../components/Sidebar"
 import mapIcon from "../utils/map-icon"
+import api from "../services/api"
 
-export default function Orphanage() {
+interface Params {
+  id: string
+}
+
+interface Orphanage {
+  name: string
+  latitude: number
+  longitude: number
+  description: string
+  instructions: string
+  openingHours: string
+  openOnWeekends: string
+  images: Array<{
+    path: string
+  }>
+}
+
+export default function OrphanageDetails() {
   const { goBack } = useHistory()
+
+  const params = useParams<Params>()
+
+  const [orphanage, setOrphanage] = useState<Orphanage>()
+
+  useEffect(() => {
+    api.get(`orphanages/${params.id}`).then(response => {
+      setOrphanage(response.data)
+    })
+  }, [params.id])
+
+  if (!orphanage) return <p style={{ color: '#17D6EB' }}>Carregando...</p>
 
   return (
     <div id="page-orphanage">
       <Sidebar />
       <main>
         <div className="orphanage-details">
-          <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
+          <img src={orphanage.images[0].path} alt={orphanage.name} />
 
           <div className="images">
-            <button className="active" type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
+            {orphanage.images.map(image => {
+              return (
+                <button className="active" type="button">
+                  <img src={image.path} alt={orphanage.name} />
+                </button>
+              )
+            })}
           </div>
 
           <div className="orphanage-details-content">
