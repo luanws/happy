@@ -3,6 +3,7 @@ import { getRepository } from "typeorm"
 import { EntityNotFoundError } from "typeorm/error/EntityNotFoundError"
 import Image from "../models/images"
 import Orphanage from "../models/orphanage"
+import OrphanageView from "../views/orphanages-view"
 
 export default class OrphanagesController {
     static async index(request: Request, response: Response) {
@@ -10,7 +11,7 @@ export default class OrphanagesController {
         const orphanages = await orphanagesRepository.find({
             relations: ['images']
         })
-        return response.json(orphanages)
+        return response.json(OrphanageView.renderArray(orphanages))
     }
 
     static async create(request: Request, response: Response) {
@@ -37,7 +38,7 @@ export default class OrphanagesController {
             const { id } = request.params
             const orphanagesRepository = getRepository(Orphanage)
             const orphanage = await orphanagesRepository.findOneOrFail(id)
-            return response.json(orphanage)
+            return response.json(OrphanageView.render(orphanage))
         } catch (e) {
             if (e instanceof EntityNotFoundError) {
                 return response.json({ message: 'Orfanato não encontrado' })
