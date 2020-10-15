@@ -22,7 +22,7 @@ interface Orphanage {
   openingHours: string
   openOnWeekends: string
   images: Array<{
-    path: string
+    url: string
   }>
 }
 
@@ -46,13 +46,13 @@ export default function OrphanageDetails() {
       <Sidebar />
       <main>
         <div className="orphanage-details">
-          <img src={orphanage.images[0].path} alt={orphanage.name} />
+          <img src={orphanage.images[0].url} alt={orphanage.name} />
 
           <div className="images">
             {orphanage.images.map(image => {
               return (
                 <button className="active" type="button">
-                  <img src={image.path} alt={orphanage.name} />
+                  <img src={image.url} alt={orphanage.name} />
                 </button>
               )
             })}
