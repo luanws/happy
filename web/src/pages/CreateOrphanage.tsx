@@ -94,13 +94,11 @@ export default function CreateOrphanage() {
             <div className="input-block">
               <label htmlFor="images">Fotos</label>
 
-              <div className="uploaded-image">
-
+              <div className="images-container">
+                <button type="button" className="new-image">
+                  <FiPlus size={24} color="#15b6d6" />
+                </button>
               </div>
-
-              <button type="button" className="new-image">
-                <FiPlus size={24} color="#15b6d6" />
-              </button>
             </div>
           </fieldset>
 
