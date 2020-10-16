@@ -6,6 +6,7 @@ import '../styles/pages/create-orphanage.css'
 import Sidebar from "../components/Sidebar"
 import mapIcon from "../utils/map-icon"
 import { LeafletMouseEvent } from 'leaflet'
+import api from "../services/api"
 
 interface MapPosition {
   latitude: number
@@ -13,7 +14,7 @@ interface MapPosition {
 }
 
 export default function CreateOrphanage() {
-  const { goBack } = useHistory()
+  const history = useHistory()
 
   const [mapPosition, setMapPosition] = useState<MapPosition | undefined>(undefined)
 
@@ -36,21 +37,25 @@ export default function CreateOrphanage() {
     setImages([...images, ...newImages])
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     const [latitude, longitude] = [mapPosition?.latitude, mapPosition?.longitude]
 
-    const orphanage = {
-      name,
-      about,
-      instructions,
-      openingHours,
-      openOnWeekends,
-      latitude,
-      longitude
-    }
+    const data = new FormData()
 
-    console.log(orphanage)
+    data.append("name", String(name))
+    data.append("about", String(about))
+    data.append("instructions", String(instructions))
+    data.append("openingHours", String(openingHours))
+    data.append("openOnWeekends", String(openOnWeekends))
+    data.append("latitude", String(latitude))
+    data.append("longitude", String(longitude))
+    images.forEach(image => data.append("images", image))
+
+    await api.post('orphanages', data)
+
+    alert('Cadastro realizado com sucesso')
+    history.push('/app')
   }
 
   return (
