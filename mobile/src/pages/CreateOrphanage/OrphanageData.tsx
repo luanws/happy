@@ -1,7 +1,7 @@
-import React from 'react';
-import { ScrollView, View, StyleSheet, Switch, Text, TextInput, TouchableOpacity } from 'react-native';
-import { Feather } from '@expo/vector-icons';
-import { RectButton } from 'react-native-gesture-handler';
+import React from 'react'
+import { ScrollView, View, StyleSheet, Switch, Text, TextInput, TouchableOpacity } from 'react-native'
+import { Feather } from '@expo/vector-icons'
+import { RectButton } from 'react-native-gesture-handler'
 
 export default function OrphanageData() {
   return (
@@ -25,7 +25,7 @@ export default function OrphanageData() {
       />
 
       <Text style={styles.label}>Fotos</Text>
-      <TouchableOpacity style={styles.imagesInput} onPress={() => {}}>
+      <TouchableOpacity style={styles.imagesInput} onPress={() => { }}>
         <Feather name="plus" size={24} color="#15B6D6" />
       </TouchableOpacity>
 
@@ -44,13 +44,13 @@ export default function OrphanageData() {
 
       <View style={styles.switchContainer}>
         <Text style={styles.label}>Atende final de semana?</Text>
-        <Switch 
-          thumbColor="#fff" 
+        <Switch
+          thumbColor="#fff"
           trackColor={{ false: '#ccc', true: '#39CC83' }}
         />
       </View>
 
-      <RectButton style={styles.nextButton} onPress={() => {}}>
+      <RectButton style={styles.nextButton} onPress={() => { }}>
         <Text style={styles.nextButtonText}>Cadastrar</Text>
       </RectButton>
     </ScrollView>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#5c8599',
     fontSize: 24,
-    fontFamily: 'Nunito_700Bold',
+    fontFamily: 'nunito700',
     marginBottom: 32,
     paddingBottom: 24,
     borderBottomWidth: 0.8,
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
 
   label: {
     color: '#8fa7b3',
-    fontFamily: 'Nunito_600SemiBold',
+    fontFamily: 'nunito600',
     marginBottom: 8,
   },
 
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   },
 
   nextButtonText: {
-    fontFamily: 'Nunito_800ExtraBold',
+    fontFamily: 'nunito800',
     fontSize: 16,
     color: '#FFF',
   }
