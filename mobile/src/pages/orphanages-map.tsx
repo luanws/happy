@@ -2,10 +2,15 @@ import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps'
-import mapMarker from './src/images/map-marker.png'
+import mapMarker from '../images/map-marker.png'
 import { Feather } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 
 const OrphanagesMap: React.FC = () => {
+  const navigation = useNavigation()
+
+  const navigateToOrphanageDetails = () => navigation.navigate('OrphanageDetails')
+
   return (
     <View style={styles.container}>
       <MapView
@@ -26,7 +31,7 @@ const OrphanagesMap: React.FC = () => {
           }}
           calloutAnchor={{ x: 2.4, y: 0.8 }}
         >
-          <Callout tooltip onPress={() => { alert('oi') }}>
+          <Callout tooltip onPress={navigateToOrphanageDetails}>
             <View style={styles.calloutContainer}>
               <Text style={styles.calloutText}>Nome do orfanato</Text>
             </View>
