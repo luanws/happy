@@ -1,22 +1,22 @@
-import React from 'react';
-import { View, StyleSheet, Dimensions, Text } from 'react-native';
+import React from 'react'
+import { View, StyleSheet, Dimensions, Text } from 'react-native'
 
-import { useNavigation } from '@react-navigation/native';
-import { RectButton } from 'react-native-gesture-handler';
-import MapView, { Marker } from 'react-native-maps';
+import { useNavigation } from '@react-navigation/native'
+import { RectButton } from 'react-native-gesture-handler'
+import MapView, { Marker } from 'react-native-maps'
 
-import mapMarkerImg from '../../images/map-marker.png';
+import mapMarkerImg from '../../images/map-marker.png'
 
 export default function SelectMapPosition() {
-  const navigation = useNavigation();
+  const navigation = useNavigation()
 
   function handleNextStep() {
-    navigation.navigate('OrphanageData');
+    navigation.navigate('OrphanageData')
   }
 
   return (
     <View style={styles.container}>
-      <MapView 
+      <MapView
         initialRegion={{
           latitude: -27.2092052,
           longitude: -49.6401092,
@@ -25,7 +25,7 @@ export default function SelectMapPosition() {
         }}
         style={styles.mapStyle}
       >
-        <Marker 
+        <Marker
           icon={mapMarkerImg}
           coordinate={{ latitude: -27.2092052, longitude: -49.6401092 }}
         />
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
 
   nextButtonText: {
-    fontFamily: 'Nunito_800ExtraBold',
+    fontFamily: 'nunito800',
     fontSize: 16,
     color: '#FFF',
   }
