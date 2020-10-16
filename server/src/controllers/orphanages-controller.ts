@@ -21,9 +21,12 @@ export default class OrphanagesController {
         const requestImages = request.files as Express.Multer.File[]
         const images = requestImages.map(image => { return { path: image.filename } as Image })
 
+        const { openOnWeekends } = request.body
+
         const data = {
             images,
-            ...request.body
+            ...request.body,
+            openOnWeekends: openOnWeekends === 'true'
         }
 
         const schema = yup.object().shape({
