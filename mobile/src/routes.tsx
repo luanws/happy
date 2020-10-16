@@ -1,9 +1,9 @@
 import React from 'react'
 import { View } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
-import OrphanagesMap from './pages/orphanages-map'
+import OrphanagesMap from './pages/OrphanagesMap'
 import { NavigationContainer } from '@react-navigation/native'
-import OrphanageDetails from './pages/orphanage-details'
+import OrphanageDetails from './pages/OrphanageDetails'
 
 const Routes: React.FC = () => {
   const { Navigator, Screen } = createStackNavigator()
