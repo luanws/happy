@@ -19,7 +19,11 @@ const Routes: React.FC = () => {
           backgroundColor: '#f2f3f5'
         },
       }}>
-        <Screen name="OrphanagesMap" component={OrphanagesMap} />
+        <Screen
+          name="OrphanagesMap"
+          component={OrphanagesMap}
+        />
+
         <Screen
           name="OrphanageDetails"
           component={OrphanageDetails}
@@ -28,8 +32,24 @@ const Routes: React.FC = () => {
             header: () => <Header title="Orfanato" />
           }}
         />
-        <Screen name="OrphanageData" component={OrphanageData} />
-        <Screen name="SelectMapPosition" component={SelectMapPosition} />
+
+        <Screen
+          name="OrphanageData"
+          component={OrphanageData}
+          options={{
+            headerShown: true,
+            header: () => <Header showCancel title="Selecione no mapa" />
+          }}
+        />
+
+        <Screen
+          name="SelectMapPosition"
+          component={SelectMapPosition}
+          options={{
+            headerShown: true,
+            header: () => <Header showCancel title="Informe os dados" />
+          }}
+        />
       </Navigator>
     </NavigationContainer>
   )

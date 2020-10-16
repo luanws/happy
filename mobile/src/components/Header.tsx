@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 
 interface Props {
   title: string
+  showCancel?: boolean
 }
 
 const Header: React.FC<Props> = (props) => {
@@ -21,9 +22,11 @@ const Header: React.FC<Props> = (props) => {
 
       <Text style={styles.title}>{props.title}</Text>
 
-      <BorderlessButton onPress={navigateToHomePage}>
-        <Feather name="x" size={24} color="#ff669d" />
-      </BorderlessButton>
+      {props.showCancel ? (
+        <BorderlessButton onPress={navigateToHomePage}>
+          <Feather name="x" size={24} color="#ff669d" />
+        </BorderlessButton>
+      ) : <View style={{ width: 24 }} />}
     </View>
   )
 }
