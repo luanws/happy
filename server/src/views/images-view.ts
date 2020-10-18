@@ -4,7 +4,7 @@ class ImageView {
     static render(image: Image) {
         return {
             id: image.id,
-            url: `http://localhost:5000/uploads/${image.path}`
+            url: `http://192.168.100.88:5000/uploads/${image.path}`
         }
     }
 
